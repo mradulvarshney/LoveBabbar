@@ -1,0 +1,107 @@
+//{ Driver Code Starts
+import java.io.*;
+import java.util.*;
+class GFG
+{
+    public static void main(String args[])throws IOException
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            int r = sc.nextInt();
+            int c = sc.nextInt();
+            
+            int matrix[][] = new int[r][c];
+            
+            for(int i = 0; i < r; i++)
+            {
+                for(int j = 0; j < c; j++)
+                 matrix[i][j] = sc.nextInt();
+            }
+            Solution ob = new Solution();
+            ArrayList<Integer> ans = ob.spirallyTraverse(matrix, r, c);
+            for (Integer val: ans) 
+                System.out.print(val+" "); 
+            System.out.println();
+        }
+    }
+}
+// } Driver Code Ends
+
+
+class Solution
+{
+    //Function to return a list of integers denoting spiral traversal of matrix.
+    static ArrayList<Integer> spirallyTraverse(int matrix[][], int r, int c)
+    {
+        ArrayList<Integer> arr = new ArrayList<>();
+        int left = 0;
+        int top = 0;
+        int right = matrix[top].length-1;
+        int bottom = matrix.length-1;
+        int dir = 1;
+        int count = r*c;
+        
+        while(left<=right && top<=bottom)
+        {
+            if(count>0)
+            {
+                if(dir == 1)
+                {
+                    for(int i=left; i<=right; i++)
+                    {
+                        arr.add(matrix[top][i]);
+                        count--;
+                    }
+                    dir=2;
+                    top++;
+                }
+            }
+            
+            if(count>0)
+            {
+                if(dir==2)
+                {
+                    for(int i=top; i<=bottom; i++)
+                    {
+                        arr.add(matrix[i][right]);
+                        count--;
+                    }
+                    dir=3;
+                    right--;
+                }
+            }
+            
+            if(count>0)
+            {
+                if(dir==3)
+                {
+                    for(int i=right; i>=left; i--)
+                    {
+                        arr.add(matrix[bottom][i]);
+                        count--;
+                    }
+                    dir=4;
+                    bottom--;
+                }
+            }
+            
+            if(count>0)
+            {
+                if(dir==4)
+                {
+                    for(int i=bottom; i>=top; i--)
+                    {
+                        arr.add(matrix[i][left]);
+                        count--;
+                    }
+                    dir=1;
+                    left++;
+                }
+            }
+        }
+        return arr;
+    }
+}
