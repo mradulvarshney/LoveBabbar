@@ -1,0 +1,48 @@
+//{ Driver Code Starts
+// Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+
+        int tc = Integer.parseInt(br.readLine().trim());
+        while (tc-- > 0) {
+            String roman = br.readLine().trim();
+            Solution ob = new Solution();
+            System.out.println(ob.romanToDecimal(roman));
+        }
+    }
+}
+// } Driver Code Ends
+
+
+// User function Template for Java
+
+class Solution {
+    // Finds decimal value of a given roman numeral
+    public int romanToDecimal(String str) 
+    {
+        HashMap<Character, Integer> store = new HashMap<>();
+        store.put('I', 1);
+        store.put('V', 5);
+        store.put('X', 10);
+        store.put('L', 50);
+        store.put('C', 100);
+        store.put('D', 500);
+        store.put('M', 1000);
+        
+        int result=store.get(str.charAt(str.length()-1));
+        for(int i=str.length()-2; i>=0; i--)
+        {
+            if(store.get(str.charAt(i))>=store.get(str.charAt(i+1)))
+                result+=store.get(str.charAt(i));
+            else
+                result-=store.get(str.charAt(i));
+        }
+        return result;
+    }
+}
